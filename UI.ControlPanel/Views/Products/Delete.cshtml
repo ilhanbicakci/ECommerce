@@ -1,0 +1,139 @@
+﻿@model Core.Concretes.Entities.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h2 class="text-center">Delete</h2>
+<h4 class="text-center">Are you sure you want to delete this?</h4>
+
+
+
+    <hr />
+
+    <div class="container text-center border">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="row ">
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CategoryId)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CreateDate)
+                    </dd>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TaxRatio)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TaxRatio)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DiscountRatio)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DiscountRatio)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Discounted)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Discounted)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Active)
+                    </dd>
+                </div>
+                <div class="col border">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Deleted)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Deleted)
+                    </dd>
+                </div>
+            </div>
+
+            <div class="row justify-content-around mt-4">
+
+                <div class="col-sm-3 mb-3">
+                    <div class="d-grid gap-3 col-7 col-md-10 col-sm-12 mx-auto">
+                        <a href="@Url.Action("index","products")" class="btn btn-dark btn-sm">&lArr; Back To Products</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="d-grid gap-3 col-7 col-md-10 col-sm-12 mx-auto">
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+    </div>

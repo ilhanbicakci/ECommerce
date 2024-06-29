@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity
+@using UI.WebPage.Models
+
+
+
+@if (Request.IsAuthenticated)
+{
+    ApplicationUser user = User.Identity.GetUser();
+
+    <div class="btn-group">
+        <div class="d-flex m-3 me-0">
+
+            <a href="#" class="position-relative me-4 my-auto dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;" id="cart_count">0</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li><span class="dropdown-header">Sepetim</span></li>
+                <span id ="cart_items"></span>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                    <a class="dropdown-item text-end fw-bold" href="@Url.Action("cart", "shop")">Sepetime Git &rArr;</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <a href="#" class="my-auto dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            <img src="@user.ProfilePicture" class="rounded-circle img-thumbnail" width="50" />
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+
+            <li><h4 class="dropdown-header">Hello @user.FirstName @user.LastName</h4></li>
+
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Manage")">Manage</a></li>
+
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                }
+            </li>
+
+        </ul>
+    </div>
+}
+
+
+
+else
+{
+    <div class="btn-group">
+        <a href="#" class="my-auto dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            <i class="fas fa-user fa-2x"></i>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "dropdown-item" })</li>
+        </ul>
+    </div>
+}
+
+
+
+

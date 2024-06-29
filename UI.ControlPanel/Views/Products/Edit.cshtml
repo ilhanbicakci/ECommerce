@@ -1,0 +1,132 @@
+﻿@model Core.Concretes.Entities.Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center">Product Editing</h2>
+    </div>
+    <div class="card-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @* --Asla değişmeyecek şeyleri buraya yazıyoruz-- *@
+
+            <div class="row justify-content-evenly mt-2 mb-4">
+
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-check-input", @role = "switch" } })
+                        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "form-check-label" })
+                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        @Html.EditorFor(model => model.Deleted, new { htmlAttributes = new { @class = "form-check-input", @role = "switch" } })
+                        @Html.LabelFor(model => model.Deleted, htmlAttributes: new { @class = "form-check-label" })
+                        @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-floating mb-3">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = " " } })
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-floating mb-3">
+                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control", @placeholder = " " })
+                        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-floating mb-3">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = " " } })
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = " " })
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-floating mb-3">
+                        @Html.EditorFor(model => model.TaxRatio, new { htmlAttributes = new { @class = "form-control", @placeholder = " " } })
+                        @Html.LabelFor(model => model.TaxRatio, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.TaxRatio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-floating mb-3">
+                        @Html.EditorFor(model => model.DiscountRatio, new { htmlAttributes = new { @class = "form-control", @placeholder = " " } })
+                        @Html.LabelFor(model => model.DiscountRatio, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.DiscountRatio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-check form-switch d-flex justify-content-center align-items-center h-75">
+                        @Html.EditorFor(model => model.Discounted, new { htmlAttributes = new { @class = "form-check-input", @role = "switch" } })
+                        @Html.LabelFor(model => model.Discounted, htmlAttributes: new { @class = "form-check-label" })
+                        @Html.ValidationMessageFor(model => model.Discounted, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="row justify-content-around mt-4">
+
+                    <div class="col-sm-3 mb-3">
+                        <div class="d-grid gap-3 col-7 col-md-10 col-sm-12 mx-auto">
+                            <a href="@Url.Action("index","products")" class="btn btn-dark btn-sm">&lArr; Back To Products</a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="d-grid gap-3 col-7 col-md-10 col-sm-12 mx-auto">
+                                <input type="submit" value="Update" class="btn btn-success btn-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                }
+
+            </div>
+</div>
+
+
+
+

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7AB6D798-4216-4982-910D-72C26B98940B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\Bases\BaseEntity.cs" />
+    <Compile Include="Abstracts\IRepositories\ICargoRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\ICartItemRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\ICategoryRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\IOrderItemRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\IOrderRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\IProductPhotoRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\IProductRepo.cs" />
+    <Compile Include="Abstracts\IRepositories\IShoppingCartRepo.cs" />
+    <Compile Include="Abstracts\IServices\IShopService.cs" />
+    <Compile Include="Abstracts\IUnitOfWork.cs" />
+    <Compile Include="Concretes\Constants\CargoStatus.cs" />
+    <Compile Include="Concretes\Constants\OrderStatus.cs" />
+    <Compile Include="Concretes\Constants\ShoppingCartStatus.cs" />
+    <Compile Include="Concretes\DTOs\CartDTO.cs" />
+    <Compile Include="Concretes\DTOs\CartItemDTO.cs" />
+    <Compile Include="Concretes\DTOs\ProductDetailDTO.cs" />
+    <Compile Include="Concretes\DTOs\ProductListItemDTO.cs" />
+    <Compile Include="Concretes\Entities\Cargo.cs" />
+    <Compile Include="Concretes\Entities\CartItem.cs" />
+    <Compile Include="Concretes\Entities\Category.cs" />
+    <Compile Include="Concretes\Entities\Order.cs" />
+    <Compile Include="Concretes\Entities\OrderItem.cs" />
+    <Compile Include="Concretes\Entities\Product.cs" />
+    <Compile Include="Concretes\Entities\ProductPhoto.cs" />
+    <Compile Include="Concretes\Entities\ShoppingCart.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{4D3C106A-14F4-411D-A65B-FB58DB397D2F}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

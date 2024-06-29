@@ -1,0 +1,171 @@
+﻿@model Utilities.Models.GenericPagination<Core.Concretes.DTOs.ProductListItemDTO>
+@using Utilities.Extensions
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Shop</h1>
+</div>
+<!-- Single Page Header End -->
+<!-- Fruits Shop Start-->
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Taze Meyve & Sebze Alışverişi</h1>
+        <div class="row g-4">
+            <div class="col-lg-12">
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <h4>Kategoriler</h4>
+                                <ul class="list-unstyled fruite-categorie">
+                                    <li>
+                                        <div class="d-flex justify-content-between fruite-name">
+                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Meyveler</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between fruite-name">
+                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Sebzeler</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row g-4 justify-content-center">
+
+                        @foreach (var item in Model.Data)
+                        {
+                            <div class="col-md-6 col-lg-6 col-xl-4">
+                                <div class="card rounded position-relative fruite-item">
+                                    <div class="fruite-img">
+                                        <img src="@item.Photo" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white px-3 py-1 mt-1 rounded position-absolute
+                                            @if(item.CategoryName == "Meyve") {
+                                                @:background-color: #6c757d; /* bg-secondary */
+                                            } else if(item.CategoryName == "Sebze") {
+                                                @:background-color: #28a745; /* bg-success */
+                                            }" style="top: 10px; left: 10px;">
+                                        @item.CategoryName
+                                    </div>
+
+
+                                    <div class="card-body p-4 border border-secondary border-top-0 rounded-bottom">
+                                        <div class="row justify-content-between">
+                                            <div class="col-6">
+                                                <h4>@item.Name</h4>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-dark fs-5 fw-bold mb-0">@item.ListPrice.ToString("0.00") / kg</p>
+                                            </div>
+
+
+
+
+                                            <div class="text-center">
+                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addToCart(@item.ProductId)"><i class="fa fa-shopping-bag me-2 text-primary"></i>Sepete Ekle</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+
+                        <div class="col-12">
+                            <div class="pagination d-flex justify-content-center mt-5">
+
+                                @for (int i = Model.Start; i <= Model.End; i++)
+                                {
+                                    if (Model.CurrentPage == i)
+                                    {
+                                        <a href="#" class="active rounded">@i</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("index", "shop", new {page=i})" class="rounded">@i</a>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fruits Shop End-->
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    @section scripts{
+
+        <script>
+            
+
+            const create_card = (json) => {
+                document.getElementById("cart_count").innerText = json.ItemCount
+                let itemList = document.getElementById("cart_items")
+                itemList.innerHTML = ""
+                json.Items.forEach((x, i) => {
+                    itemList.innerHTML += `
+                  <div class="row g-3 mb-2 p-2" style="width:15rem">
+                    <div class="col-md-4">
+                      <img src="${x.Product.Photo}" class="img-thumbnail rounded" alt="${x.Product.Name}">
+                    </div>
+                  <div class="col-md-8 p-1">
+                      <h6 class="text-nowrap text-center">${x.Product.Name} <small class="text-muted">x${x.Quantity}</small> </h6>
+                      <div class="text-muted text-center">
+                        <small class="text-dark">
+                          Adet: ${x.Product.ListPrice.toFixed(2)} ₺
+                        </small></div>
+                        <div class="text-muted text-center">
+                        <small class="text-dark">
+                          Toplam: ${(x.Product.ListPrice * x.Quantity).toFixed(2)} ₺
+                        </small>
+                      </div>
+                  </div>
+                </div>`
+                })
+            }
+
+
+            const getCart = () => {
+                fetch("/shop/cart")
+                    .then(res => res.json())
+                    .then(json => create_card(json))
+                    .catch(err => console.error(err))
+            }
+
+            getCart()
+
+
+            const addToCart = (pid) => {
+                fetch("/shop/addToCart?pid=" + pid, { method: "POST" })
+                    .then(res => res.json())
+                    .then(json => create_card(json))
+                    .catch(err => console.error(err))
+            }
+
+
+        </script>
+    }
+}
+
+
+
